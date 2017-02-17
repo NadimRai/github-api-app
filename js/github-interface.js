@@ -24,11 +24,14 @@ var displayUser = function(info, repos) {
     var description = repos[i][1];
     var language = repos[i][2];
     var createdAt = repos[i][3];
-    var dates = moment(createdAt).format('LLL');
+    var updatedAt = repos[i][4];
+    var dateC = moment(createdAt).format('LLL');
+    var dateU = moment(updatedAt).format('LLL');
+
     if(description === null){
       description = "";
     }
-    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>" + dates + "</h5></div>");
+    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>Published on: " + dateC + "</h5><h5>Updated on: "+dateU +"</h5></div>");
   }
 };
 
