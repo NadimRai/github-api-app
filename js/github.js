@@ -1,3 +1,6 @@
+var apiKey = require('./../.env').apiKey;
+
+
 function Github() {
 }
 
@@ -31,3 +34,5 @@ Github.prototype.getUser = function(username, displayFunction) {
     $('#user-not-foundor').append("Github user can not be found" );
   });
 };
+
+exports.githubModule = Github;

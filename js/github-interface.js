@@ -1,3 +1,6 @@
+var Github = require('./../js/github.js').githubModule;
+
+
 var displayUser = function(info, repos) {
   $('h2').show();
   $('#user-not-found').empty();
