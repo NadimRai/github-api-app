@@ -26,7 +26,8 @@ Github.prototype.getUser = function(username, displayFunction) {
         var repoName = repo.name;
         var description = repo.description;
         var language = repo.language;
-        repoInfo.push([repoName, description, language]);
+        var createdAt = repo.created_at;
+        repoInfo.push([repoName, description, language, createdAt]);
       });
       displayFunction(info, repoInfo);
     });

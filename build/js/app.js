@@ -26,11 +26,12 @@ var displayUser = function(info, repos) {
     var title = repos[i][0];
     var description = repos[i][1];
     var language = repos[i][2];
-    var date = moment(repos[i].created_at).format('LLL');
+    var createdAt = repos[i][3];
+    var dates = moment(createdAt).format('LLL');
     if(description === null){
       description = "";
     }
-    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>" + date + "</h5></div>");
+    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>" + dates + "</h5></div>");
   }
 };
 
@@ -71,7 +72,8 @@ Github.prototype.getUser = function(username, displayFunction) {
         var repoName = repo.name;
         var description = repo.description;
         var language = repo.language;
-        repoInfo.push([repoName, description, language]);
+        var createdAt = repo.created_at;
+        repoInfo.push([repoName, description, language, createdAt]);
       });
       displayFunction(info, repoInfo);
     });
