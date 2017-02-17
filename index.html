@@ -10,28 +10,32 @@
     <title>GitHub Lookup Users</title>
   </head>
   <body>
-  <div class="jumbotron">
-    <div class="container">
-      <h1>GitHub Lookup</h1>
-        <div class="col-md-12">
-          <form id="form" class="form-inline">
-            <div class="form-group">
-              <input id="username" class="form-control" placeholder="GitHub username" length="90px">
-            </div>
-            <div class="form-group">
-              <button class="btn btn-primary center-block" type="submit"><i class="fa fa-github" aria-hidden="true"></i>  Search</button>
-            </div>
-          </form>
-        </div>
-    </div> 
-  </div><!-- End of jumbotron -->
   <div class="container">
-    <h3 id="error"></h3>
-    <div class="output row">
-      <div id="user-info" class="col-md-3"></div>
-      <h2>Repositories</h2>
-      <div id="user-repos" class="col-md-9"></div>
-    </div>
-  </div><!-- End of container -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>GitHub Users Lookup</h1>
+          <div class="col-md-12">
+            <form id="form" class="form-inline">
+              <div class="form-group">
+                <input id="username" class="form-control" placeholder="GitHub username">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary center-block" type="submit"><i class="fa fa-github" aria-hidden="true"></i>  Search</button>
+              </div>
+            </form>
+          </div>
+      </div> 
+    </div><!-- End of jumbotron -->
+    <div class="container">
+      <h3 id="user-not-found"></h3>
+      <div class="row">
+        <div id="user-info" class="col-md-6 col-md-offset-3"></div>
+      </div>
+      <div class="row">
+        <div id="user-repos" class="col-md-6 col-md-offset-3">   
+        </div>
+      </div>
+    </div><!-- End of container -->
+  </div>
   </body>
 </html>
