@@ -7,6 +7,7 @@ var utilities = require('gulp-util');
 var buildProduction = utilities.env.production;
 var del = require('del');
 var jshint = require('gulp-jshint');
+var lib = require('bower-files')();
 
 gulp.task('jsBrowserify', function() {
   return browserify({ entries: ['./js/github-interface.js'] })
@@ -45,6 +46,12 @@ gulp.task('jshint', function(){
     .pipe(jshint.reporter('default'));
 });
 
+gulp.task('bowerJS', function () {
+  return gulp.src(lib.ext('js').files)
+    .pipe(concat('vendor.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./build/js'));
+});
 
 
 gulp.task("build", function(){
