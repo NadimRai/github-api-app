@@ -12,12 +12,23 @@
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <title>GitHub Lookup Users</title>
+    <style>
+      .jumbotron{
+        background-image: url("github-logo.png");
+        background-image:no-repeat; 
+        background-image: cover;
+        height:240px;
+        width:580px;
+      }
+    </style>
   </head>
   <body>
   <div class="container">
     <div class="jumbotron">
+    </div><!-- End of jumbotron -->
       <div class="container">
-        <h1>GitHub Users Lookup</h1>
+      
+        <!-- <h1>GitHub Users Lookup</h1> -->
           <div class="col-md-12">
             <form id="form" class="form-inline">
               <div class="form-group">
@@ -27,11 +38,9 @@
                 <button class="btn btn-primary center-block" type="submit"><i class="fa fa-github" aria-hidden="true"></i>  Search</button>
               </div>
             </form>
-            <h3>Well look at the time! </h3>
-            <h3 id="time"></h3>
           </div>
       </div> 
-    </div><!-- End of jumbotron -->
+    <br><br>
     <div class="container">
       <h3 id="user-not-found"></h3>
       <div class="row">
