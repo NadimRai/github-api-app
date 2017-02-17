@@ -1,0 +1,21 @@
+{
+  "name": "github-userlookup-menlo",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "NadimRai <rai_nadim@yahoo.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NadimRai/github-userlookup-menlo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}
