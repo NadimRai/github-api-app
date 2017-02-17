@@ -1,1 +1,87 @@
-!function e(n,r,t){function o(a,i){if(!r[a]){if(!n[a]){var s="function"==typeof require&&require;if(!i&&s)return s(a,!0);if(u)return u(a,!0);var c=new Error("Cannot find module '"+a+"'");throw c.code="MODULE_NOT_FOUND",c}var f=r[a]={exports:{}};n[a][0].call(f.exports,function(e){var r=n[a][1][e];return o(r?r:e)},f,f.exports,e,n,r,t)}return r[a].exports}for(var u="function"==typeof require&&require,a=0;a<t.length;a++)o(t[a]);return o}({1:[function(e,n,r){r.apiKey="8aa0680d64cca6c9d0bf7d3ea4c180db0907ebbb"},{}],2:[function(e,n,r){var t=e("./../js/github.js").githubModule,o=function(e,n){$("h2").show(),$("#user-not-found").empty(),$("#user-info").empty(),$("#user-repos").empty();var r=e[3],t=e[0],o=e[1],u=e[2];null!==o&&null!==u?$("#user-info").append("<img src='"+r+"'><h3>"+t+"</h3><p>"+o+"<br>"+u+"</p>"):$("#user-info").append("<img src='"+r+"'><h3>"+t+"</h3>");for(var a=0;a<n.length;a++){var i=n[a][0],s=n[a][1],c=n[a][2];null===s&&(s=""),$("#user-repos").append("<br><div class='col-md-11 well'><h4>"+i+"</h4><h5 class='bold'>Language: "+c+"</h5><h5>"+s+"</h5></div>")}};$(document).ready(function(){var e=new t;$("#form").submit(function(n){n.preventDefault();var r=$("#username").val();e.getUser(r,o)})})},{"./../js/github.js":3}],3:[function(e,n,r){function t(){}var o=e("./../.env").apiKey;t.prototype.getUser=function(e,n){var r=[],t=[];$.get("https://api.github.com/users/"+e+"?access_token="+o).then(function(u){var a=u.login,i=u.name,s=u.location,c=u.avatar_url;r.push(a,i,s,c),$.get("https://api.github.com/users/"+e+"/repos?access_token="+o).then(function(e){var o=e;o.forEach(function(e){var n=e.name,r=e.description,o=e.language;t.push([n,r,o])}),n(r,t)})}).fail(function(e){$("#user-not-found").empty(),$("#user-info").empty(),$("#user-repos").empty(),$("#user-not-foundor").append("Github user can not be found")})},r.githubModule=t},{"./../.env":1}]},{},[2]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+exports.apiKey = "8aa0680d64cca6c9d0bf7d3ea4c180db0907ebbb";
+},{}],2:[function(require,module,exports){
+var Github = require('./../js/github.js').githubModule;
+
+
+var displayUser = function(info, repos) {
+  $('h2').show();
+  $('#user-not-found').empty();
+  $('#user-info').empty();
+  $('#user-repos').empty();
+  var img = info[3];
+  var username = info[0];
+  var name = info[1];
+  var location = info[2];
+  var following = info[4];
+  var followers = info[5];
+  var numRepos = info[6];
+  if(name !== null && location !== null){
+    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5>" + "</p>");
+  } else {
+    $('#user-info').append("<img src='" + img + "'>" + "<h3>" + username + "</h3>");
+  }
+  
+  for (var i = 0; i < repos.length; i++) {
+    var title = repos[i][0];
+    var description = repos[i][1];
+    var language = repos[i][2];
+    var date = moment(repos[i].created_at).format('LLL');
+    if(description === null){
+      description = "";
+    }
+    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>" + date + "</h5></div>");
+  }
+};
+
+$(document).ready(function() {
+  var newGithub = new Github();
+  $('#form').submit(function(event) {
+    event.preventDefault();
+    var username = $('#username').val();
+    newGithub.getUser(username, displayUser);
+  });
+});
+},{"./../js/github.js":3}],3:[function(require,module,exports){
+var apiKey = require('./../.env').apiKey;
+
+
+function Github() {
+}
+
+Github.prototype.getUser = function(username, displayFunction) {
+  var info = [];
+  var repoInfo = [];
+  
+  $.get('https://api.github.com/users/' + username + '?access_token=' + apiKey).then(function(response) {
+    
+      var user = response.login;
+      var name = response.name;
+      var location = response.location;
+      var image = response.avatar_url;
+      var following = response.following;
+      var followers = response.followers;
+      var numRepos = response.public_repos;
+      info.push(user, name, location, image, following, followers, numRepos);
+
+    
+    $.get('https://api.github.com/users/' + username + '/repos?access_token=' + apiKey).then(function(result) {
+      var repos = result;
+      repos.forEach(function(repo) {
+        var repoName = repo.name;
+        var description = repo.description;
+        var language = repo.language;
+        repoInfo.push([repoName, description, language]);
+      });
+      displayFunction(info, repoInfo);
+    });
+  }).fail(function(error){
+    $('#user-not-found').empty();
+    $('#user-info').empty();
+    $('#user-repos').empty();
+    $('#user-not-foundor').append("Github user can not be found" );
+  });
+};
+
+exports.githubModule = Github;
+},{"./../.env":1}]},{},[2]);

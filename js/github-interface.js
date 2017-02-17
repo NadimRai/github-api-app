@@ -10,8 +10,11 @@ var displayUser = function(info, repos) {
   var username = info[0];
   var name = info[1];
   var location = info[2];
+  var following = info[4];
+  var followers = info[5];
+  var numRepos = info[6];
   if(name !== null && location !== null){
-    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location +  "</p>");
+    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5>" + "</p>");
   } else {
     $('#user-info').append("<img src='" + img + "'>" + "<h3>" + username + "</h3>");
   }
@@ -20,10 +23,11 @@ var displayUser = function(info, repos) {
     var title = repos[i][0];
     var description = repos[i][1];
     var language = repos[i][2];
+    var date = moment(repos[i].created_at).format('LLL');
     if(description === null){
       description = "";
     }
-    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5></div>");
+    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>" + date + "</h5></div>");
   }
 };
 

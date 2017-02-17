@@ -14,7 +14,10 @@ Github.prototype.getUser = function(username, displayFunction) {
       var name = response.name;
       var location = response.location;
       var image = response.avatar_url;
-      info.push(user, name, location, image);
+      var following = response.following;
+      var followers = response.followers;
+      var numRepos = response.public_repos;
+      info.push(user, name, location, image, following, followers, numRepos);
 
     
     $.get('https://api.github.com/users/' + username + '/repos?access_token=' + apiKey).then(function(result) {
