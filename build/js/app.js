@@ -16,8 +16,10 @@ var displayUser = function(info, repos) {
   var following = info[4];
   var followers = info[5];
   var numRepos = info[6];
+  var member = info[7];
+  var memberDate = moment(member).format("DD/MM/YYYY");
   if(name !== null && location !== null){
-    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5>" + "</p>");
+    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5><h5>Member since: "+ memberDate + "</h5>" + "</p>");
   } else {
     $('#user-info').append("<img src='" + img + "'>" + "<h3>" + username + "</h3>");
   }
@@ -45,6 +47,7 @@ $(document).ready(function() {
     var username = $('#username').val();
     newGithub.getUser(username, displayUser);
   });
+
 });
 },{"./../js/github.js":3}],3:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
@@ -66,7 +69,8 @@ Github.prototype.getUser = function(username, displayFunction) {
       var following = response.following;
       var followers = response.followers;
       var numRepos = response.public_repos;
-      info.push(user, name, location, image, following, followers, numRepos);
+      var member = response.created_at;
+      info.push(user, name, location, image, following, followers, numRepos, member);
 
     
     $.get('https://api.github.com/users/' + username + '/repos?access_token=' + apiKey).then(function(result) {

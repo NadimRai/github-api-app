@@ -13,8 +13,10 @@ var displayUser = function(info, repos) {
   var following = info[4];
   var followers = info[5];
   var numRepos = info[6];
+  var member = info[7];
+  var memberDate = moment(member).format("DD/MM/YYYY");
   if(name !== null && location !== null){
-    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5>" + "</p>");
+    $('#user-info').append("<img src='" + img + "'><h3>" + username + "</h3><p>" + name + "<br>" + location + "<br>" + "<h5> Numbers of following: " + following +"</h5><h5> Numbers of followers: " + followers + "</h5><h5> Number of repository: "+numRepos + "</h5><h5>Member since: "+ memberDate + "</h5>" + "</p>");
   } else {
     $('#user-info').append("<img src='" + img + "'>" + "<h3>" + username + "</h3>");
   }
@@ -42,4 +44,5 @@ $(document).ready(function() {
     var username = $('#username').val();
     newGithub.getUser(username, displayUser);
   });
+
 });
