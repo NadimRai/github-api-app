@@ -27,11 +27,11 @@ var displayUser = function(info, repos) {
     var updatedAt = repos[i][4];
     var dateC = moment(createdAt).format('LLL');
     var dateU = moment(updatedAt).format('LLL');
-
+    var countFork = repos[i][5];
     if(description === null){
       description = "";
     }
-    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>Published on: " + dateC + "</h5><h5>Updated on: "+dateU +"</h5></div>");
+    $('#user-repos').append("<br><div class='col-md-11 well'><h4>" + title + "</h4><h5 class='bold'>Language: "+ language + "</h5><h5>" + description + "</h5><h5>Published on: " + dateC + "</h5><h5>Updated on: "+dateU +"</h5><h5> Number of Fork: "+ countFork + "</h5></div>");
   }
 };
 

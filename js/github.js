@@ -28,7 +28,8 @@ Github.prototype.getUser = function(username, displayFunction) {
         var language = repo.language;
         var createdAt = repo.created_at;
         var updatedAt = repo.updated_at;
-        repoInfo.push([repoName, description, language, createdAt, updatedAt]);
+        var countFork = repo.forks_count;
+        repoInfo.push([repoName, description, language, createdAt, updatedAt, countFork]);
       });
       displayFunction(info, repoInfo);
     });
